@@ -16,26 +16,26 @@ public class PersonServlet extends HttpServlet {
             throws ServletException, IOException {
         PersonProvider personProvider = new PersonProvider();
         String actionPerson = request.getParameter("actionPerson");
-        
-        
-        if (actionPerson == null) {
-            // Retrieve the person details
-            Person person = personProvider.getPerson();
 
+        if (actionPerson == null || actionPerson.equals("view")) {
+            Person person = personProvider.getPerson();
             request.setAttribute("person", person);
             request.getRequestDispatcher("/personDetails.jsp").forward(request, response);
-        } 
+        } else if (actionPerson.equals("update")) {
+            savePerson(request, response);
+        }
     }
 
     protected void savePerson(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Person person = new Person();
-        person.setName(request.getParameter("inputName"));
-        person.setEmail(request.getParameter("inputEmail"));
-        person.setPhone(request.getParameter("inputPhone"));
-        person.setLocation(request.getParameter("inputLocation"));
-        person.setResume(request.getParameter("inputResume"));
-        person.setImage(request.getParameter("inputImage"));
+        //general info
+        person.setName(request.getParameter("name"));
+        person.setEmail(request.getParameter("email"));
+        person.setPhone(request.getParameter("phone"));
+        person.setLocation(request.getParameter("location"));
+        person.setResume(request.getParameter("resume"));
+        person.setImage(request.getParameter("image"));
 
         PersonProvider personProvider = new PersonProvider();
         personProvider.updatePerson(person);
@@ -53,7 +53,7 @@ public class PersonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        savePerson(request, response);
+        processRequest(request, response);
     }
 
     @Override

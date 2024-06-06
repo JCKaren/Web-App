@@ -3,9 +3,9 @@ package com.mycompany.cv.app.infrastructure;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
+import com.mycompany.cv.app.context.ConnectionMongoDB;
 import org.bson.Document;
 import com.mycompany.cv.app.models.Person;
-import com.mycompany.cv.app.context.ConnectionMongoDB;
 import com.mycompany.cv.app.models.Education;
 import com.mycompany.cv.app.models.Experience;
 import com.mycompany.cv.app.models.Skill;
@@ -13,6 +13,7 @@ import com.mycompany.cv.app.models.Skill;
 import java.util.List;
 
 public class PersonProvider {
+
     private final MongoCollection<Document> collection;
     private EducationProvider educationProvider;
     private ExperienceProvider experienceProvider;
@@ -28,13 +29,16 @@ public class PersonProvider {
     }
 
     public Person getPerson() {
-        Document document = (Document) this.collection.find(eq("person_id", 0));
+        // Find the document matching the criteria
+        Document document = this.collection.find(eq("person_id", 0)).first();
+
+        // Check if the document is null
         if (document == null) {
             return null;
         }
 
         Person person = new Person();
-        //general information
+        // general information
         person.setName(document.getString("name"));
         person.setEmail(document.getString("email"));
         person.setPhone(document.getString("phone"));
@@ -42,15 +46,15 @@ public class PersonProvider {
         person.setResume(document.getString("resume"));
         person.setImage(document.getString("image"));
 
-        //education
+        // education
         List<Education> edu = educationProvider.getEducation(document);
         person.setEducation(edu);
 
-        //experience
+        // experience
         List<Experience> exp = experienceProvider.getExperience(document);
         person.setExperience(exp);
 
-        //skills
+        // skills
         List<Skill> sk = skillProvider.getSkill(document);
         person.setSkill(sk);
 
