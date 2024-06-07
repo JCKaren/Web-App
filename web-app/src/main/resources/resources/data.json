@@ -1,0 +1,56 @@
+[
+    {
+        "person_id": 0,
+        "name": "John Doe",
+        "email": "johndoe@example.com",
+        "phone": "1234567890",
+        "location": "123 Main St, Anytown, USA",
+        "resume": "Link to resume or actual text of resume",
+        "Education": [
+            {
+                "education_id": 0,
+                "institutionName": "University A",
+                "degree": "Bachelor of Science in Computer Science",
+                "graduationYear": "2020",
+                "status": "true"
+            },
+            {
+                "education_id": 1,
+                "institutionName": "University B",
+                "degree": "Master of Science in Data Science",
+                "graduationYear": "2022",
+                "status": "false"
+            }
+        ],
+        "Experience": [
+            {
+                "experience_id": 0,
+                "companyName": "Company X",
+                "initialDate": "2020-07-01",
+                "finalDate": "2021-12-31",
+                "position": "Software Engineer",
+                "status": "true"
+            },
+            {
+                "experience_id": 1,
+                "companyName": "Company Y",
+                "initialDate": "2022-01-01",
+                "finalDate": "2023-06-01",
+                "position": "Data Scientist",
+                "status": "false"
+            }
+        ],
+        "Skill": [
+            {
+                "skill_id": 0,
+                "skillName": "Python",
+                "expertiseLevel": "Advanced"
+            },
+            {
+                "skill_id": 1,
+                "skillName": "Machine Learning",
+                "expertiseLevel": "Intermediate"
+            }
+        ]
+    }
+]
